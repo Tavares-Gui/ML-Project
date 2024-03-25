@@ -13,3 +13,7 @@ df['Embarked'] = le.fit_transform(df['Embarked'])
 df['Sex'] = le.fit_transform(df['Sex'])
 
 apos a alteração a acuracia passou de 92% para 98%
+
+ao alteral uma linha que usava um "iloc" para uma coluna do df, a acuracia foi para 100%
+
+https://www.kaggle.com/datasets/ashishkumarjayswal/titanic-datasets/data
