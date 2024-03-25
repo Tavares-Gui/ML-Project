@@ -29,7 +29,7 @@ df['Fare'] = df['Fare'].astype(int)
 data = df.drop(['PassengerId', 'Name', 'Cabin', 'Ticket'], axis =1, inplace=True)
 
 Train = df.drop(['Survived'], axis=1)
-Test = df.iloc[:,1]
+Test = df['Survived']
 x_train, x_test, y_train, y_test = train_test_split(Train, Test, test_size = 0.2, random_state = 1)
 
 LR = LogisticRegression(solver='liblinear', max_iter=200)
