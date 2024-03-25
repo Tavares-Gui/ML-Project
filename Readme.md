@@ -1,3 +1,7 @@
+primeiro teste feito com Logistic Regression
+
+Foi escolhido a Logistic Regression pelo problema ser de 0 (morreu) e 1 (sobreviveu) para a predição, sendo um modelo mais facil para tal caso, sendo também otimo em performance
+
 df['Embarked'] = df['Embarked'].map( {'Q': 0,'S':1,'C':2}).astype(int)
 df['Sex'] = df['Sex'].map( {'female': 1,'male':0}).astype(int)
 
