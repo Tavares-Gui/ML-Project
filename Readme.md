@@ -16,6 +16,8 @@ apos a alteração a acuracia passou de 92% para 98%
 
 ao alteral uma linha que usava um "iloc" para uma coluna do df, a acuracia foi para 100%
 
+tentei fazer o DTR e tambem o SVC e os dois me retornaram resultados muito ruins
+
 save:
 !pip install numpy
 !pip install pandas
