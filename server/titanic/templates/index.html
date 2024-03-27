@@ -12,7 +12,7 @@
         <h1 style="display: flex; background-color: lightBlue; justify-content: center;">FIND OUT IF YOU WOULD DIE ON THE TITANIC</h1>
         <div style="display: flex; justify-content: center;">
             <div style="display: flex; justify-content: center; border-style: ridge; border-width: 5px; border-color: black; width: 275px; height: 325px;">
-                <form>
+                <form action="{{ url_for('auth.register') }}" method="post">
                     <fieldset>
                         <legend>Passenger class</legend>
 
