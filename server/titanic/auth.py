@@ -1,9 +1,8 @@
+import pickle
 import functools
+from joblib import dump, load
 
-# from . import create_app
 from flask import (Blueprint, flash, g, redirect, render_template, request, session, url_for)
-
-# app = create_app()
 
 bp = Blueprint('auth', __name__, url_prefix='/')
 
@@ -14,6 +13,9 @@ def submit():
     pClass = request.form.get('pClass')
     gender = request.form.get('gender')
     embarked = request.form.get('embarked')
+    
+    LRmodel = load('../models/LogisticRegression.pkl')
+    ENmodel = load('../models/ElasticNet.pkl')
     
     if gender == 'male':
         gender = 1

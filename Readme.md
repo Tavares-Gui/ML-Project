@@ -2,183 +2,7 @@ primeiro teste feito com Logistic Regression
 
 Foi escolhido a Logistic Regression pelo problema ser de 0 (morreu) e 1 (sobreviveu) para a predição, sendo um modelo mais facil para tal caso, sendo também otimo em performance
 
-df['Embarked'] = df['Embarked'].map( {'Q': 0,'S':1,'C':2}).astype(int)
-df['Sex'] = df['Sex'].map( {'female': 1,'male':0}).astype(int)
-
-estas linhas estavam sendo usadas para transformar os tipos que estavam em string para numeros, a acuracia com estas linhas era de 92%
-
-apos pesquisas, as duas linhas linhas foram substituidas pelas seguintes:
-
-df['Embarked'] = le.fit_transform(df['Embarked'])
-df['Sex'] = le.fit_transform(df['Sex'])
-
-apos a alteração a acuracia passou de 92% para 98%
-
-ao alteral uma linha que usava um "iloc" para uma coluna do df, a acuracia foi para 100%
-
-tentei fazer o DTR e tambem o SVC e os dois me retornaram resultados muito ruins
-
-save:
-!pip install numpy
-!pip install pandas
-!pip install joblib
-!pip install matplotlib
-!pip install scikit-learn
-
-https://www.kaggle.com/datasets/ashishkumarjayswal/titanic-datasets/data
-
-
-
-
-
-
-
-
-
-
-
-
-estou programando em python usando flask
-
-
-```
-import functools
-
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
-
-bp = Blueprint('auth', __name__, url_prefix='/auth')
-
-@bp.route('/', methods=('GET', 'POST'))
-def register():
-    return render_template('index.html')
-
-```
-
-tenho este auth
-
-
-```
-import os
-
-from flask import Flask
-
-def create_app(test_config=None):
-    # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
-    )
-
-    if test_config is None:
-        # load the instance config, if it exists, when not testing
-        app.config.from_pyfile('config.py', silent=True)
-    else:
-        # load the test config if passed in
-        app.config.from_mapping(test_config)
-
-    # ensure the instance folder exists
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
-
-    # a simple page that says hello
-    @app.route('/')
-    def hello():
-        return 'Hello, World!'
-    
-    from . import auth
-    app.register_blueprint(auth.bp)
-
-    return app
-
-```
-
-este init
-
-
-```
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Titanic</title>
-        <style>
-        </style>
-    </head>
-
-    <body>
-        <h1 style="display: flex; background-color: lightBlue; justify-content: center;">FIND OUT IF YOU WOULD DIE ON THE TITANIC</h1>
-        <div style="display: flex; justify-content: center;">
-            <div style="display: flex; justify-content: center; border-style: ridge; border-width: 5px; border-color: black; width: 275px; height: 325px;">
-                <form>
-                    <fieldset>
-                        <legend>Passenger class</legend>
-
-                        <input type="radio" id="class1"/>
-                            <label for="class1">1</label>
-
-                        <input type="radio" id="class2"/>
-                            <label for="class2">2</label>
-
-                        <input type="radio" id="class3"/>
-                            <label for="class3">3</label>
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>Passenger gender</legend>
-
-                        <input type="radio" id="male"/>
-                            <label for="male">Male</label>
-
-                        <input type="radio" id="female"/>
-                            <label for="female">Female</label>
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>Passenger age</legend>
-
-                        <input type="number" id="age">
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>Passenger embarked</legend>
-
-                        <input type="radio" id="q"/>
-                            <label for="q">Q</label>
-
-                        <input type="radio" id="s"/>
-                            <label for="s">S</label>
-
-                        <input type="radio" id="c"/>
-                            <label for="c">C</label>
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>Passenger fare</legend>
-
-                        <input type="text" id="fare">
-                    </fieldset>
-
-                    <br>
-
-                    <button>Submit</button>
-                </form>
-            </div>
-        </div>
-    </body>
-</html>
-
-```
-
-este html
-
-
-
+tenho este modelo de Machine learning, para prever se algm morre no titanic
 
 
 ```
@@ -248,11 +72,181 @@ for i in range(len(Y)):
 plt.plot(Ymm)
 plt.plot(Ypmm)
 plt.show()
+```
+
+tenho o seguinte arquivo __init__ para o python, estou usando flask
+
+ 
+```
+import os
+
+from flask import Flask
+
+def create_app(test_config=None):
+    app = Flask(__name__, instance_relative_config=True)
+    app.config.from_mapping(
+        SECRET_KEY='dev',
+        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
+    )
+
+    if test_config is None:
+        app.config.from_pyfile('config.py', silent=True)
+    else:
+        app.config.from_mapping(test_config)
+
+    try:
+        os.makedirs(app.instance_path)
+    except OSError:
+        pass
+    
+    from . import auth
+    app.register_blueprint(auth.bp)
+
+    return app
 
 ```
 
-e este modelo
+o seguinte auth também em python para o flask
 
 
 
-preciso fazer com que os valores dos meus inputs no html seja passados para que eu consiga testalos usando o meu modelo, mas nao sei fazer isso
+
+```
+import functools
+
+# from . import create_app
+from flask import (Blueprint, flash, g, redirect, render_template, request, session, url_for)
+
+# app = create_app()
+
+bp = Blueprint('auth', __name__, url_prefix='/')
+
+@bp.route('/submit', methods=('POST',))
+def submit():
+    age = request.form.get('age')
+    fare = request.form.get('fare')
+    pClass = request.form.get('pClass')
+    gender = request.form.get('gender')
+    embarked = request.form.get('embarked')
+    
+    if gender == 'male':
+        gender = 1
+    else:
+        gender = 0
+        
+    if embarked == 'Q':
+        embarked = 1
+    elif embarked == 'S':
+        embarked = 2
+    else:
+        embarked = 3
+        
+    age = int(age)
+    
+    data = [[pClass, gender, age, embarked, fare]]
+    
+    Ypred = model.predict(data)
+    
+    return render_template('result.html', prediction=Ypred[0])
+
+@bp.route('/', methods=('GET', 'POST'))
+def register():
+    return render_template('index.html')
+
+```
+
+e as seguintes paginas html, index e result respectivamente
+
+
+```
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Titanic</title>
+        <style>
+        </style>
+    </head>
+
+    <body>
+        <h1 style="display: flex; background-color: lightBlue; justify-content: center;">FIND OUT IF YOU WOULD DIE ON THE TITANIC</h1>
+        <div style="display: flex; justify-content: center;">
+            <div style="display: flex; justify-content: center; border-style: ridge; border-width: 5px; border-color: black; width: 275px; height: 325px;">
+                <form>
+                    <fieldset>
+                        <legend>Passenger class</legend>
+
+                        <input name="pClass" type="radio" id="class1"/>
+                            <label for="class1">1</label>
+
+                        <input name="pClass" type="radio" id="class2"/>
+                            <label for="class2">2</label>
+
+                        <input name="pClass" type="radio" id="class3"/>
+                            <label for="class3">3</label>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Passenger gender</legend>
+
+                        <input name="gender" type="radio" id="male"/>
+                            <label for="male">Male</label>
+
+                        <input name="gender" type="radio" id="female"/>
+                            <label for="female">Female</label>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Passenger age</legend>
+
+                        <input name="age" type="number" id="age">
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Passenger embarked</legend>
+
+                        <input name="embarked" type="radio" id="q"/>
+                            <label for="q">Q</label>
+
+                        <input name="embarked" type="radio" id="s"/>
+                            <label for="s">S</label>
+
+                        <input name="embarked" type="radio" id="c"/>
+                            <label for="c">C</label>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Passenger fare</legend>
+
+                        <input name="fare" type="text" id="fare">
+                    </fieldset>
+
+                    <br>
+
+                    <button href="{{ url_for('auth.submit') }}">Submit</button>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
+
+```
+
+
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titanic</title>
+</head>
+<body>
+    <h1>{{ prediction }}</h1>
+    <a href="{{ url_for('auth.index') }}">Voltar para o form</a>
+</body>
+</html>
+```
+
+preciso fazer com que ao enviar o formulario do index, a resposta do formulario seja utilizada no modelo feito em python, para que eu consiga saber se a pessoas iria sobreviver ou morre, o que falta para que isso aconteca
